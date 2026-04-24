@@ -5,6 +5,10 @@
 //    outLen     - total length of returned string
 // Returns:
 //    centred string padded with spaces
+// Useage:
+// dcl-s centred varchar(50);
+// centred = CentreString('Hello', 20);
+// Result: "       Hello        "
 // -------------------------------------------------------------
 dcl-proc CentreString export;
    dcl-pi *n varchar(500);
