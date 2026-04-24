@@ -1,0 +1,127 @@
+      *  FormaServe Training Portfolio                                          
+      *  Subfile example                                                        
+      *                                                                         
+      *  There are 4 parts to a subfile                                         
+      *                                                                         
+      *  File level keywords                                                    
+      *  Record format: SC01 the subfile record                                 
+      *  Record format: SC01C the subfile control record                        
+      *  Record format: SC01F the screen footer                                 
+                                                                                
+     A*%%EC                                                                     
+     A                                      DSPSIZ(24 80 *DS3)                  
+     A                                      REF(*LIBL/MEMBERP)                  
+     A                                      PRINT                               
+     A                                      INDARA                              
+     A                                      CA03(03 'F3=Exit')                  
+     A                                      CA12(03 'F12=Previous')             
+      *                                                                         
+     A          R SC01                      SFL                                 
+     A*%%TS  SD  20260403  160037  ANDY        REL-V7R4M0  5770-WDS             
+     A            S1RRN          4S 0H                                          
+     A            S1MID          4S 0H                                          
+     A            S1FIR         50A  H                                          
+     A            S1SUR         40A  H                                          
+     A            S1EML        100A  H                                          
+     A            S1DAT         10D  H                                          
+     A            S1STS          1A  H                                          
+     A            S1OPT          1A  B  6  3                                    
+     A            S1NAM         25   O  6  6                                    
+     A            S1EMAIL       30   O  6 40                                    
+     A            S1STATUS       1   O  6 75                                    
+      *                                                                         
+     A          R SC01C                     SFLCTL(SC01)                        
+     A                                      KEEP                                
+     A                                      TEXT('First Screen')                
+     A                                      SFLSIZ(9999)                        
+     A                                      SFLPAG(0015)                        
+     A                                      OVERLAY                             
+     A  31                                  SFLDSP                              
+     A  30                                  SFLDSPCTL                           
+      *                                                                         
+     A N30                                  SFLCLR                              
+     A  30                                  SFLEND(*MORE)                       
+     A                                      CA05(05 'F5=Refresh')               
+     A                                      CA06(06 'F6=Create')                
+     A            Q#PNAM        10A  O  1  2COLOR(BLU)                          
+     A                                  1 25'FormaServe Library Application'    
+     A                                      COLOR(BLU)                          
+     A                                  1 72DATE                                
+     A                                      EDTCDE(Y)                           
+     A                                      COLOR(BLU)                          
+     A                                  2  2USER                                
+     A                                      COLOR(BLU)                          
+     A                                  2 30'Member Maintenance'                
+     A                                  2 72TIME                                
+     A                                      COLOR(BLU)                          
+     A                                  4  4'2=Change  4=Inactive  5=Display'   
+     A                                      COLOR(BLU)                          
+     A                                  5  2'Opt'                               
+     A                                      DSPATR(HI)                          
+     A                                  5  6'Name'                              
+     A                                      DSPATR(HI)                          
+     A                                  5 40'Email'                             
+     A                                      DSPATR(HI)                          
+     A                                  5 72'Status'                            
+     A                                      DSPATR(HI)                          
+      *                                                                         
+      **********************************************************************    
+      * SC01F - Subfile Footer                                             *    
+      **********************************************************************    
+     A          R SC01F                                                         
+     A                                      TEXT('SubFile 1 Footer')            
+     A                                      KEEP                                
+     A                                      OVERLAY                             
+     A                                 23  7'F3=Exit'                           
+     A                                      COLOR(BLU)                          
+     A                                 23 21'F5=Refresh'                        
+     A                                      COLOR(BLU)                          
+     A                                 23 38'F6=Create'                         
+     A                                      COLOR(BLU)                          
+     A                                 23 54'F12=Previous'                      
+     A                                      COLOR(BLU)                          
+      **********************************************************************    
+      * MBRDLT - Confirmation window for inactive status                   *    
+      **********************************************************************    
+     A          R MBRDLT                    OVERLAY                             
+     A                                      WINDOW(07 12 10 56)                 
+     A                                      TEXT('Window')                      
+     A                                      KEEP                                
+     A                                      WDWTITLE((*TEXT 'Change Member Stat-
+     A                                      us'))                               
+     A                                      WDWTITLE((*TEXT ' F12=Previous ') *-
+     A                                      LEFT *BOTTOM)                       
+     A                                  4  4'Mbr ID:'                           
+     A            CNFMID         9S 0O  4 14                                    
+     A                                  5  4'Name  :'                           
+     A            CNFNAME       40A  O  5 14                                    
+     A                                  7  4'Set this member inactive?'         
+     A                                  8  4'Y=Yes   N=No'                      
+     A            CNFOPT         1A  B  8 18VALUES(' ' 'Y' 'N')                 
+     A            CNFMSG        40A  O  9  4                                    
+     A                                      DSPATR(HI)                          
+                                                                                
+      **********************************************************************    
+      * Confirmation window for display                                    *    
+      **********************************************************************    
+     A          R DSPMBR                    OVERLAY                             
+     A                                      WINDOW(07 12 10 56)                 
+     A                                      TEXT('Window')                      
+     A                                      KEEP                                
+     A                                      WDWTITLE((*TEXT 'Library Member'))  
+     A                                      WDWTITLE((*TEXT ' F12=Previous ') *-
+     A                                      LEFT *BOTTOM)                       
+     A                                  3  4'Mbr ID:'                           
+     A            DSPMID         9Y 0O  3 14EDTCDE(J)                           
+     A                                      DSPATR(HI)                          
+     A                                  4  4'Name  :'                           
+     A            DSPNAM        40A  O  4 14DSPATR(HI)                          
+     A                                  5  4'Email :'                           
+     A            DSPEML        40A  O  5 14DSPATR(HI)                          
+     A                                  6  4'Joined:'                           
+     A            DSPDAT        40A  O  6 14DSPATR(HI)                          
+     A                                  7  4'Status:'                           
+     A            DSPSTS        10A  O  7 14DSPATR(HI)                          
+     A                                                                          
+     A            DSPMSG        40A  O  9  4                                    
+     A                                      DSPATR(HI)                          
