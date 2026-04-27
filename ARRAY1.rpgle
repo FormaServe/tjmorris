@@ -1,5 +1,17 @@
 **free                                                                                              
-                                                                                                    
+
+//    FormaServe IBM i Training Exercises
+//
+//    For full disclaimer see
+//      https://www.formaserve.co.uk/training-disclaimer.html
+//
+//    © - FormaServe Systems Ltd.  1990 - 2026
+//    www.FormaServe.co.uk
+
+ctl-opt option(*nodebugio:*srcstmt:*nounref)
+        Copyright( '(c) Copyright FormaServe Systems Ltd.  1990' )
+        BndDir( 'ILEBND' : 'QC2LE' )  ;
+                                                                                                                                              
 dcl-ds emps dim(20) qualified;                                                                      
  name varchar(25);                                                                                  
 id packed(9:0);                                                                                     
