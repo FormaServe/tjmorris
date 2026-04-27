@@ -1,3 +1,13 @@
+**free
+
+//    FormaServe IBM i Training Exercises
+//
+//    For full disclaimer see
+//      https://www.formaserve.co.uk/training-disclaimer.html
+//
+//    © - FormaServe Systems Ltd.  1990 - 2026
+//    www.FormaServe.co.uk
+                                          
 // -------------------------------------------------------------
 // CentreString() – centres a string within a given length
 // Parameters:
